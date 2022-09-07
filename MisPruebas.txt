@@ -1,0 +1,126 @@
+nuevo docker file
+-------------------
+from mysql
+
+
+ENV MYSQL_DATABASE mydb
+ENV MYSQL_ROOT_PASSWORD secret
+
+
+COPY algo.sql /docker-entrypoint-initdb.d/
+RUN chmod -R 775 /docker-entrypoint-initdb.d
+ 
+
+EXPOSE 8077
+
+
+
+sql nuevo
+------------
+
+use mydb;
+create table nombre (nombre varchar(255));
+insert into nombre values ('dato desde el dockerfile');
+
+
+
+docker file bd
+-------------------
+
+from mysql
+
+
+ENV MYSQL_DATABASE mydb
+ENV MYSQL_ROOT_PASSWORD secret
+
+EXPOSE 80
+
+
+docker file backen
+-----------------------
+
+FROM node
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
+EXPOSE 8085
+CMD [ "node", "server.js" ]
+
+
+
+package,json
+------------
+{
+    "name": "docker_web_app",
+    "version": "1.0.0",
+    "description": "Node.js on Docker",
+    "author": "First Last <first.last@example.com>",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "dependencies": {
+      "express": "^4.16.1",
+      "mysql2": "*",
+      "mysql-client": "^0.3.0"
+      
+   }
+}
+
+
+
+serve.js
+.-------------
+
+var mysql = require('mysql2');
+
+var con = mysql.createConnection({
+  host: "192.168.0.7",
+  user: "root",
+  password: "secret",
+  database:"mydb",
+  port : "33061"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+  var sql = `INSERT INTO nombre (nombre) VALUES ("pepito")`;
+    con.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+    });
+  
+}
+
+
+
+
+
+
+
+
+OJO CREAR LA IMAGEN DEL BD A PARTIR DE A/A
+
+
+docker build . -f DockerFileBackend -t a/imagenbackend5
+docker run -d -p 8082:8080 a/imagenbackend5
+
+
+docker build . -f DockerfileBD -t a/imagendb
+docker run -d -p 33061:3306 --name ContenedorBD a/imagenbd
+
+docker exec -it mysql57 mysql -uroot -p
