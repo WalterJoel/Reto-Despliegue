@@ -1,0 +1,6 @@
+IMAGENES PUBLICADAS EN DOCKER HUB
+-------------------------------------
+
+docker pull walterjoel/backend:1.0
+docker pull walterjoel/database:1.0
+

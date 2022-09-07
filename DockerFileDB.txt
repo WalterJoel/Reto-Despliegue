@@ -1,0 +1,16 @@
+from mysql
+
+#Asigno un nombre a mi base de datos
+ENV MYSQL_DATABASE mydb
+#Asigno  el password 
+ENV MYSQL_ROOT_PASSWORD secret
+
+#Copio mi archivo .sql a una carpeta especifica
+COPY algo.sql /docker-entrypoint-initdb.d/
+
+#Doy permisos y va a correr todos los .sql que esten dentro de initdb
+
+RUN chmod -R 775 /docker-entrypoint-initdb.d
+ 
+#Expongo el servicio en el puerto que se dijo en el reto
+EXPOSE 8077
