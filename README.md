@@ -7,3 +7,8 @@ Reto de Despliegue propuesto en el bootcamp de Krowdy, este proyecto consta en d
 https://drive.google.com/file/d/14yLRtlOxtaTc3w9WThEwMCuGUrCbT_vk/view?usp=sharing
 ```
 
+# OJO A TENER EN CUENTA
+```bash 
+Debido a que se trabajo utilizando PLAY WITH DOCKER, en el archivo server.js tenemos una variable llamada host, la cual para este proyecto tuve que colocarle la IP que en ese momento tenia PLAY WITH DOCKER, en otro caso, colocar 'localhost' o la ip que tengan en ese momento y volver a generar la imagen.
+```
+
