@@ -8,7 +8,7 @@ const host ='0.0.0.0';
 const app = express();
 
 var con = mysql.createConnection({
-  host: "localhost",
+  host: "localhost", //Aqui deben colocar la IP de su docker
   user: "root",
   password: "secret",
   database:"mydb",
